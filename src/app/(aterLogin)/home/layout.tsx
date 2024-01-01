@@ -1,4 +1,6 @@
-export default async function HomeLayout({children}):Promise<JSX.Element>{
+import {ReactNode} from "react";
+
+export default async function HomeLayout({children}:{children: ReactNode}):Promise<JSX.Element>{
     return (
         <div>
             홈 레이아웃

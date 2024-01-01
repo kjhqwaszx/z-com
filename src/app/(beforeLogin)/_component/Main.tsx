@@ -1,13 +1,13 @@
-import styles from './page.module.css'
+import styles from "@/app/(beforeLogin)/_component/main.module.css";
 import Image from "next/image";
+import zLogo from "../../../../public/zlogo.png";
 import Link from "next/link";
-import zLogo from '../../public/zlogo.png'
 
-export default function Home(): JSX.Element {
+export default function Main() {
   return (
     <>
       <div className={styles.left}>
-        <Image src={zLogo} alt='logo'/>
+        <Image src={zLogo} alt="logo" />
       </div>
       <div className={styles.right}>
         <h1>지금 일어나고 있는 일</h1>

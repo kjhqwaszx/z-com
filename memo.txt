@@ -1,0 +1,23 @@
+[group folder]
+(폴더명) 형식으로 만드는 것이다. 사용목적은 그룹별 layout을 달리할 때 사용한다. url에 표시되지 않는다.
+
+[ private folder ]
+_폴더명 형식으로 만드는 것이다. url에 표시되지 않는다.
+
+[ parallel 라우트]
+
+@modal 디렉토리를 만들고 경로를 설정해 화면을 만들면 해당 화면도 함께 보여진다.
+layout.tsx 에서 {children}과 함께 {modal}도 선언해야 한다.
+
+[ 인터셉팅 라우팅 ]
+(.경로), (..경로) 의 디렉토리를 만들어 사용한다.
+localhost:3000/i/flow/login 으로 이동(라우팅)
+(.i)/flow/login/page.tsx 로 연결이 되어진다. 해당 파일은 paralle 라우트이므로 children이 아닌 modal로 띄워진다.
+
+즉, localhost:3000 에서 로그인 버틑을 눌러 /i/flow/login 으로 이동을 하는 액션이라면
+처음 메인 페이지 (beforLogin)/page.tsx 위에 (인터셉팅 을 통해) (.i)/flow/login/page.tsx 화면이 modal로 뜨게 된다.
+
+그럼 기존의 (beforeLogin)/i/flow/login은 항상 인터셉팅 당해서 안뜨는 거냐? 라고 생각할 수 있지만
+라우팅 과정 없이 localhost:3000/i/flow/login 를 직접 입력하거나 해당 주소에서 새로고침을 하게되면 화면이 뜬다.
+
+
