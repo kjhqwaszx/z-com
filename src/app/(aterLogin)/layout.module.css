@@ -16,6 +16,14 @@
     height: 100dvh;
 }
 
+.leftSection nav ul{
+    padding-left: 0;
+}
+
+.leftSection nav li {
+    list-style-type: none;
+}
+
 .leftSectionFixed {
     position: fixed;
     width: inherit;

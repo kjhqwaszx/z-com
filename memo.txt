@@ -21,3 +21,9 @@ localhost:3000/i/flow/login 으로 이동(라우팅)
 라우팅 과정 없이 localhost:3000/i/flow/login 를 직접 입력하거나 해당 주소에서 새로고침을 하게되면 화면이 뜬다.
 
 
+[useSelectedLayoutSegment(s)]
+next 에서 제공하는 훅으로 현재 위치한 메뉴를 알려준다.
+const segment = useSelectedLayoutSegment()로 선언하면
+/compose/tweet 에 진입 시 segment 는 compose 를 리턴 하고
+const segment = useSelectedLayoutSegments() 로 선언하면
+['compose', 'tweet']을 리턴한다.

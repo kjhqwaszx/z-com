@@ -1,8 +1,11 @@
+
 import {ReactNode} from "react";
 import style from '@/app/(aterLogin)/layout.module.css'
 import Link from "next/link";
 import Image from "next/image";
 import zLogo from '../../../public/zlogo.png'
+import NavMenu from "@/app/(aterLogin)/_component/NavMenu";
+import LogoutButton from "@/app/(aterLogin)/_component/LogoutButton";
 export default function AfterLoginLayout({children}:{children: ReactNode}){
     return (
         <div className={style.container}>
@@ -14,6 +17,13 @@ export default function AfterLoginLayout({children}:{children: ReactNode}){
                                 <Image src={zLogo} alt="z.com 로고" width={40} height={40}/>
                             </div>
                         </Link>
+                        <nav>
+                            <ul>
+                                <NavMenu/>
+                                <Link href="/compose/tweet" className={style.postButton}>게시하기</Link>
+                            </ul>
+                        </nav>
+                        <LogoutButton/>
                     </div>
                 </section>
             </header>
