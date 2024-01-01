@@ -6,9 +6,12 @@ import Image from "next/image";
 import zLogo from '../../../public/zlogo.png'
 import NavMenu from "@/app/(aterLogin)/_component/NavMenu";
 import LogoutButton from "@/app/(aterLogin)/_component/LogoutButton";
+import TrendSection from "@/app/(aterLogin)/_component/TrendSection";
+import FollowRecommend from "@/app/(aterLogin)/_component/FollowRecommend";
 export default function AfterLoginLayout({children}:{children: ReactNode}){
     return (
         <div className={style.container}>
+            {/*좌측 메뉴*/}
             <header className={style.leftSectionWrapper}>
                 <section className={style.leftSection}>
                     <div className={style.leftSectionFixed}>
@@ -27,6 +30,7 @@ export default function AfterLoginLayout({children}:{children: ReactNode}){
                     </div>
                 </section>
             </header>
+            {/*우측 메뉴*/}
             <div className={style.rightSectionWrapper}>
                 <div className={style.rightSectionInner}>
                     <main className={style.main}>{children}</main>
@@ -41,6 +45,13 @@ export default function AfterLoginLayout({children}:{children: ReactNode}){
                                 </svg>
                                 <input type="search" />
                             </form>
+                        </div>
+                        <TrendSection/>
+                        <div className={style.followRecommend}>
+                            <h3>팔로우 추천</h3>
+                            <FollowRecommend/>
+                            <FollowRecommend/>
+                            <FollowRecommend/>
                         </div>
                     </section>
                 </div>
