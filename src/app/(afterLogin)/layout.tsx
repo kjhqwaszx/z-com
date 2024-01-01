@@ -1,14 +1,17 @@
 
 import {ReactNode} from "react";
-import style from '@/app/(aterLogin)/layout.module.css'
+import style from '@/app/(afterLogin)/layout.module.css'
 import Link from "next/link";
 import Image from "next/image";
 import zLogo from '../../../public/zlogo.png'
-import NavMenu from "@/app/(aterLogin)/_component/NavMenu";
-import LogoutButton from "@/app/(aterLogin)/_component/LogoutButton";
-import TrendSection from "@/app/(aterLogin)/_component/TrendSection";
-import FollowRecommend from "@/app/(aterLogin)/_component/FollowRecommend";
-export default function AfterLoginLayout({children}:{children: ReactNode}){
+import NavMenu from "@/app/(afterLogin)/_component/NavMenu";
+import LogoutButton from "@/app/(afterLogin)/_component/LogoutButton";
+import TrendSection from "@/app/(afterLogin)/_component/TrendSection";
+import FollowRecommend from "@/app/(afterLogin)/_component/FollowRecommend";
+
+type Props = {children: ReactNode, modal: ReactNode}
+
+export default function AfterLoginLayout({children, modal}:Props){
     return (
         <div className={style.container}>
             {/*좌측 메뉴*/}
@@ -56,6 +59,7 @@ export default function AfterLoginLayout({children}:{children: ReactNode}){
                     </section>
                 </div>
             </div>
+            {modal}
         </div>
     )
 }

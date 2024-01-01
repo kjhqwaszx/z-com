@@ -1,5 +1,5 @@
 import style from './trendSection.module.css'
-import Trend from "@/app/(aterLogin)/_component/Trend";
+import Trend from "@/app/(afterLogin)/_component/Trend";
 export default function TrendSection(){
     return(
         <div className={style.trendBg}>
