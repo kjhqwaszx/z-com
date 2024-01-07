@@ -27,3 +27,44 @@ const segment = useSelectedLayoutSegment()로 선언하면
 /compose/tweet 에 진입 시 segment 는 compose 를 리턴 하고
 const segment = useSelectedLayoutSegments() 로 선언하면
 ['compose', 'tweet']을 리턴한다.
+
+
+[ MSW(Mock Service Worker)로 임시 API 만들어 사용하기 ]
+
+현재 Next 14 버전에 완벽하게 적용된 것은 아니지만 사용할만한 수준이다.
+에러나는 상황을 만들어 테스트 할 때도 유용하게 사용한다.
+
+1. MSW 설치
+    > npx msw init public/ --save
+    > npm install msw --save-dev
+
+    public 폴더 안에 mockServiceWorker.js 파일이 생성된다.
+    이 파일은 요청하는 request 를 가로채서 내부 로직에 따라 response 해주게 된다.
+
+2-1. /src/mocks/http.ts
+    Next 는 서버단에서도 돌아가기 때문에 MSW 가 서버에서도 실행되어야 한다. 하지만 현재는 지원하고 있지않아 노드 서버를 이용한다.
+    > npm i -D @mswjs/http-middleware express cors
+    > npm i --save-dev @types/express @types/cors
+
+2-2. /src/mocks/browser.ts
+    이 파일은 클라이언트에서 실행되는 환경이다.
+
+3. >/src/mocks/handlers.ts
+    이 파일에서 실제 response 내용을 작성한다.
+    http.ts 와 browser.ts 가 이 핸들러를 사용한다.
+
+4. package.json 에 msw 실행 명령어를 추가한다.
+    "mock": npx tsx watch ./src/mocks/http.ts
+    > npm run mock
+
+
+5. /app/_component/MSWComponent.tsx 생성
+    (afterLogin), (beforeLogin) 모두 적용되어야 하므로 /app/_component 에 만들어주고
+    /app/layout.tsx에 넣어준다.
+6. .env.local 파일을 만들고 환경변수 추가
+    개발 환경에서만 msw를 사용하면 되므로 .env.local 파일에 환경변수를 추가한다.
+
+    NEXT_PUBLIC_API_MOCKING = enabled
+    환경변수 앞에 NEXT_PUBLIC_ 가 붙어있으면 브라우저에서 접근 가능한 환경변수이고
+    API_MOCKING = enabled 이렇게 선언하면 서버에서만 접근이 가능하다. ( 브라우저에 노출되지 않는다.)
+
