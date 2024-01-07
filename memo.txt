@@ -68,3 +68,13 @@ const segment = useSelectedLayoutSegments() 로 선언하면
     환경변수 앞에 NEXT_PUBLIC_ 가 붙어있으면 브라우저에서 접근 가능한 환경변수이고
     API_MOCKING = enabled 이렇게 선언하면 서버에서만 접근이 가능하다. ( 브라우저에 노출되지 않는다.)
 
+
+[ useFormState, useFormStatus ]
+ React 에서 지원하는 두 가지 훅
+ const [state, formAction] = useFormState(fn, initialState)
+
+ const {pending, data, method, action} = useFormStatus
+    pending: 처리중인지 완료되었는지 (boolean)
+    data: form 에서 서버로 보낸 데이터
+    method: form 이 'get' 인지 'post' 인지
+    action: form 이 어떤 함수를 action 으로 보내는지
