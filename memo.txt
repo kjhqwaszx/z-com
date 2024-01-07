@@ -78,3 +78,17 @@ const segment = useSelectedLayoutSegments() 로 선언하면
     data: form 에서 서버로 보낸 데이터
     method: form 이 'get' 인지 'post' 인지
     action: form 이 어떤 함수를 action 으로 보내는지
+
+[ next auth.js ]
+로그인 관련 다양한 기능을 제공해주는 라이브러리이다. App Router 에서는 기존에 없었던 Middleware 기능을 제공한다.
+페이지가 렌더링 되기 전에 middleware.ts 안의 middleware 함수가 먼저 실행되어진다. 이번 프로젝트에서는
+export {auth as middleware} from "./auth" 를 선언하면서 auth.ts가 middleware 함수 대신 실행된다.
+ > npm i next-auth@5.0.0-beta.3 @auth/core
+
+ 1. /src/auth.ts & /src/middleware.ts 생성
+
+
+[catch-all Route]
+[..folderName] 으로 만드러진 폴더이다.
+/api/auth/[..nextauth] 의 경우에는 /api/auth/a or /api/auth/a/b or /api/auth/a/b/c/d/e
+이처럼 /api/auth 뒤에 오는 모든 것이 포함된다.

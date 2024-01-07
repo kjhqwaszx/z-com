@@ -11,8 +11,8 @@ function generateDate() {
 }
 const User = [
   {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
+  {id: 'mju6013', nickname: 'jae_han_e', image: '/5Udwvqim.jpg'},
   {id: 'zerohch0', nickname: '제로초', image: '/5Udwvqim.jpg'},
-  {id: 'leoturtle', nickname: '레오', image: faker.image.avatar()},
 ]
 const Posts = [];
 const delay = (ms: number) => new Promise((res) => {
