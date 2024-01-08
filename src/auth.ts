@@ -25,8 +25,6 @@ export const {
             password: credentials.password,
           }),
         })
-        console.log('$$$ id: ', credentials.username)
-        console.log('$$$ pw: ', credentials.password)
 
         if (!authResponse.ok) {
           // 로그인이 실패한 경우

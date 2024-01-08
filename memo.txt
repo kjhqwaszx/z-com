@@ -87,6 +87,8 @@ export {auth as middleware} from "./auth" 를 선언하면서 auth.ts가 middlew
 
  1. /src/auth.ts & /src/middleware.ts 생성
 
+ ->> Server Component 에서는 './auth' 를 사용하고 Client Component 에서는 '@/auth' 를 사용했다.
+
 
 [catch-all Route]
 [..folderName] 으로 만드러진 폴더이다.

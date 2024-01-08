@@ -23,7 +23,7 @@ export default function Post({ noImage }: Props) {
             nickname: 'Elon Musk',
             image: '/yRsRRjGO.jpg',
         },
-        content: '클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ',
+        content: 'z.com with Next.js v14',
         createdAt: new Date(),
         Images: [] as any[],
     }

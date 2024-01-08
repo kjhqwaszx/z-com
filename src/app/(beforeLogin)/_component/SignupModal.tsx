@@ -4,7 +4,7 @@ import onSubmit from '../_lib/signup'
 import BackButton from "@/app/(beforeLogin)/_component/BackButton";
 import { useFormState, useFormStatus } from 'react-dom'
 
-function showMessage(message: string) {
+function showMessage(message: string | undefined) {
     switch (message) {
         case 'no_id':
             return '아이디를 입력하세요.';
@@ -23,7 +23,8 @@ function showMessage(message: string) {
 }
 
 export default function SignupModal() {
-    const [state, formAction] = useFormState(onSubmit, {message:null});
+    const [state, formAction] = useFormState(onSubmit, { message: '' });
+
     const {pending} = useFormStatus();
 
     return (

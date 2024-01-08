@@ -16,7 +16,7 @@ export default function LoginModal() {
         setMessage('');
         // Client Component 에서는 next-auth 의 signIn을 사용하면된다.
         // id/pw 로그인이기 때문에 credentials 를 입력하고 카카오나 구글 로그인을 추가하려면
-        // "kakao", "google" 을 넣어주고 @/auth.ts 에 provider 배열에 kakao, google을 추가해주면 된다.
+        // "kakao", "google" 을 넣어주고 @/auth.ts 에 provider 배열에 kakao, google 을 추가해주면 된다.
         try{
             await signIn("credentials", {
                 username: id,
@@ -61,11 +61,11 @@ export default function LoginModal() {
                     <div className={style.modalBody}>
                         <div className={style.inputDiv}>
                             <label className={style.inputLabel} htmlFor="id">아이디</label>
-                            <input id="id" className={style.input} value={id} onChange={onChangeId} type="text" placeholder=""/>
+                            <input id="id" className={style.input} value={id} onChange={onChangeId} type="text" placeholder="" autoComplete='off'/>
                         </div>
                         <div className={style.inputDiv}>
                             <label className={style.inputLabel} htmlFor="password">비밀번호</label>
-                            <input id="password" className={style.input} value={password} onChange={onChangePassword} type="password" placeholder=""/>
+                            <input id="password" className={style.input} value={password} onChange={onChangePassword} type="password" placeholder="" autoComplete='off'/>
                         </div>
                     </div>
                     <div className={style.message}>{message}</div>

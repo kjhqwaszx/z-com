@@ -1,6 +1,7 @@
 "use server"
 
 import {redirect} from "next/navigation";
+import {signIn} from "@/auth";
 
 export default async (prevState: any, formData: FormData) =>{
   // Server Action
@@ -27,12 +28,19 @@ export default async (prevState: any, formData: FormData) =>{
       body: 'formData',
       credentials: 'include'
     })
-    console.log('$$$ response.status: ', response.status)
+
     if(response.status === 403){
       return {message: 'user_exists'}
     }
 
-    console.log('$$$ response.json: ', await response.json())
+    // 회원가입 후 로그인 처리
+    // Server Action 이므로 @/auth 의 signIn 을 사용한다 ( /next-auth/react x)
+    await signIn("credentials", {
+      username: formData.get('id'),
+      password: formData.get('password'),
+      redirect: false,
+    })
+
     shouldRedirect=true
   }catch (e) {
     console.error(e)
