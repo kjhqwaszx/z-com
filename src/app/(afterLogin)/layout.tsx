@@ -18,7 +18,7 @@ export default function AfterLoginLayout({children, modal}:Props){
             <header className={style.leftSectionWrapper}>
                 <section className={style.leftSection}>
                     <div className={style.leftSectionFixed}>
-                        <Link clasName={style.logo} href="/home">
+                        <Link className={style.logo} href="/home">
                             <div className={style.logoPill}>
                                 <Image src={zLogo} alt="z.com 로고" width={40} height={40}/>
                             </div>
