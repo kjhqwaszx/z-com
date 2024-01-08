@@ -1,24 +1,46 @@
 "use client";
 
 import style from '@/app/(beforeLogin)/_component/login.module.css';
-import {useState} from "react";
+import {ChangeEventHandler, FormEventHandler, useState} from "react";
 import {useRouter} from "next/navigation";
+import {signIn} from "next-auth/react";
 
 export default function LoginModal() {
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
     const router = useRouter();
 
-    const [id, setId] = useState();
-    const [password, setPassword] = useState();
-    const [message, setMessage] = useState();
-    const onSubmit = () => {};
+    const onSubmit:FormEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault();
+        setMessage('');
+        // Client Component 에서는 next-auth 의 signIn을 사용하면된다.
+        // id/pw 로그인이기 때문에 credentials 를 입력하고 카카오나 구글 로그인을 추가하려면
+        // "kakao", "google" 을 넣어주고 @/auth.ts 에 provider 배열에 kakao, google을 추가해주면 된다.
+        try{
+            await signIn("credentials", {
+                username: id,
+                password,
+                redirect: false,
+            })
+            router.replace('/home')
+        }catch (e) {
+            console.error(e)
+            setMessage('아이디와 비밀번호가 일치하지 않습니다.')
+        }
+    };
+
     const onClickClose = () => {
         router.back();
-        // TODO: 뒤로가기가 /home이 아니면 /home으로 보내기
-    }
+    };
 
-    const onChangeId = () => {};
+    const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
+        setId(e.target.value)
+    };
 
-    const onChangePassword = () => {};
+    const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
+        setPassword(e.target.value)
+    };
 
     return (
         <div className={style.modalBackground}>
