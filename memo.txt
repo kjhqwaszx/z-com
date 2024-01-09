@@ -107,3 +107,35 @@ react-query 는 로그인 이후 화면에서 사용할 것이기 때문에 (aft
 [ hydration ]
 (afterLogin)/home/page.tsx 에서 서버에서 받은 데이터(dehydratedState) 를 HydrationBoundary( react-query 에서 제공)를 통해
 클라이언트가 사용할 수 있도록 Hydration 시킨다
+
+[ React Query ]
+  < State >
+  Fresh: 최신 데이터라는 상태이며, Refetch 가 발생하지 않고 캐시 데이터를 사용한다.
+  Fetching: 데이터를 Fetching 하는중
+  Paused
+  Stale: 최신 데이터가 아니며, 옵션에 따라 Data Fetch가 발생한다.
+  inActive: 활성화 여부, 해당쿼리를 사용하지 않는 상태이다. ( 다른 컴포넌트로 이동할 경우 이전 컴포넌트에서 사용한 쿼리는 inActive)
+
+  < useQuery Options >
+  queryKey: 쿼리를 특정할 수 있는 key 이다. key 를 이용해서 쿼리를 새로고침 할 수 있다.
+  queryFn: 실제로 실행되는 Fetch 함수이다.
+  staleTime: Fresh 상태를 유지해주는 시간이고, 단위는 ms 이다. 60*1000 (1분)
+  gcTime: 가비지 컬렉션 시간이며, 쿼리가 inActive 된 이후 메모리에 몇분간 유지할 것이냐이다. ( default 5분 )
+    ** staleTime 이 gcTime 보다 짧아야 한다.
+  initialData:() => [] : 쿼리의 초기값을 지정한다.
+
+  < Query Actions _ devtools >
+  devtools 를 사용하면 useQuery 로 호출한 쿼리들의 정보를 한눈에 볼 수 있다. 실행된 커리들의 상태(fresh, fetching, ...)를 확인 할 수 있고
+  아래의 Actions 를 통해 쿼리 상태나 데이터를 수정 할 수 있다. ( 하나의 쿼리를 선택할 경우 Actions 를 실행할 수 있다 )
+
+  Refetch: 데이터를 다시 Fetch 해 가지고 온다.
+  Invalidate: 선택된 커리를 Invalidate 시켜 Refetch 와 동일하게 데이터를 fetch 시키지는 기능이다.
+              Refetch와 다른점은 현재 컴포넌트에서 사용하고 있는 쿼리가 아닐 경우 fetch가 일어나지 않고
+              사용하는 컴포넌트(페이지)로 이동 할 경우 invalidate 된 쿼리가 실행된다.
+  Reset: query option 으로 지정했던 initialData 값으로 세팅한다.
+  Remove: 선택한 쿼리를 제거한다.
+  Restore Loading: 쿼리를 로딩 상태로 바꾼다 (로딩 테스트)
+  Trigger Error: 쿼리에 에러를 발생시킨다 ( 에러테스트)
+
+
+
