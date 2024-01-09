@@ -18,7 +18,11 @@ type Props = {
 }
 
 export default function Post({ noImage, post }: Props) {
-    const target = post
+    let target = post
+
+    if (post.Original) {
+        target = post.Original;
+    }
 
     if (Math.random() > 0.5 && !noImage) {
         target.Images.push(
@@ -29,11 +33,12 @@ export default function Post({ noImage, post }: Props) {
         )
     }
 
+
     return (
         <PostArticle post={target}>
             <div className={style.postWrapper}>
                 <div className={style.postUserSection}>
-                    <Link href={`/${target.User.id}`} className={style.postUserImage}>
+                    <Link href={`/${target?.User.id}`} className={style.postUserImage}>
                         <img src={target.User.image} alt={target.User.nickname}/>
                         <div className={style.postShade} />
                     </Link>
