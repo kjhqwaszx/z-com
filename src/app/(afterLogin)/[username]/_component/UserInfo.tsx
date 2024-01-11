@@ -17,10 +17,7 @@ export default function UserInfo({username}: Props){
         gcTime: 300 * 1000,
     });
 
-
-
     if(error){
-        console.log('$$$$$ error')
         return(
             <>
                 <div className={style.header}>

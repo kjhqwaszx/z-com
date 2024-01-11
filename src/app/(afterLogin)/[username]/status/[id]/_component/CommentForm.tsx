@@ -12,7 +12,7 @@ export default function CommentForm({ id }: Props) {
   const [content, setContent] = useState('');
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const { data: me } = useSession();
+  const { data: userInfo } = useSession();
   const onClickButton = () => {}
   const onSubmit = () => {}
   const onChange = () => {}
@@ -28,7 +28,7 @@ export default function CommentForm({ id }: Props) {
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img src={me?.user?.image as string} alt={me?.user?.email as string}/>
+          <img src={userInfo?.user?.image as string} alt={userInfo?.user?.email as string}/>
         </div>
       </div>
       <div className={style.postInputSection}>

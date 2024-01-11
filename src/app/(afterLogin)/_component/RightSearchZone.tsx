@@ -1,12 +1,25 @@
 "use client"
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import style from "@/app/(afterLogin)/_component/rightSearchZone.module.css";
 import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 
 export default function RightSearchZone(){
     const pathName = usePathname()
-    const onChangeFollow = () => {}
-    const onChangeAll = () => {}
+    const searchParams = useSearchParams();
+    const router = useRouter();
+
+    // 팔로우하는 사용자
+    const onChangeFollow = () => {
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.set('pf', 'on')
+        router.replace(`/search?${newSearchParams.toString()}`)
+    }
+    // 모든 사용자
+    const onChangeAll = () => {
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.delete ('pf')
+        router.replace(`/search?${newSearchParams.toString()}`)
+    }
 
     switch (pathName) {
         case '/explore':
@@ -33,6 +46,8 @@ export default function RightSearchZone(){
     }
 
     return (
-        <SearchForm/>
+        <div style={{marginBottom: 60, width: 'inherit'}}>
+            <SearchForm/>
+        </div>
     )
 }
