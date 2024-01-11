@@ -113,7 +113,7 @@ react-query 는 로그인 이후 화면에서 사용할 것이기 때문에 (aft
   Fresh: 최신 데이터라는 상태이며, Refetch 가 발생하지 않고 캐시 데이터를 사용한다.
   Fetching: 데이터를 Fetching 하는중
   Paused
-  Stale: 최신 데이터가 아니며, 옵션에 따라 Data Fetch가 발생한다.
+  Stale: 최신 데이터가 아니며, 옵션에 따라 Data Fetch 가 발생한다.
   inActive: 활성화 여부, 해당쿼리를 사용하지 않는 상태이다. ( 다른 컴포넌트로 이동할 경우 이전 컴포넌트에서 사용한 쿼리는 inActive)
 
   < useQuery Options >
@@ -130,12 +130,25 @@ react-query 는 로그인 이후 화면에서 사용할 것이기 때문에 (aft
 
   Refetch: 데이터를 다시 Fetch 해 가지고 온다.
   Invalidate: 선택된 커리를 Invalidate 시켜 Refetch 와 동일하게 데이터를 fetch 시키지는 기능이다.
-              Refetch와 다른점은 현재 컴포넌트에서 사용하고 있는 쿼리가 아닐 경우 fetch가 일어나지 않고
+              Refetch와 다른점은 현재 컴포넌트에서 사용하고 있는 쿼리가 아닐 경우 fetch 가 일어나지 않고
               사용하는 컴포넌트(페이지)로 이동 할 경우 invalidate 된 쿼리가 실행된다.
   Reset: query option 으로 지정했던 initialData 값으로 세팅한다.
   Remove: 선택한 쿼리를 제거한다.
   Restore Loading: 쿼리를 로딩 상태로 바꾼다 (로딩 테스트)
   Trigger Error: 쿼리에 에러를 발생시킨다 ( 에러테스트)
+
+[ InfiniteQuery ]
+> Server Component (Home.tsx)
+무한 스크롤링을 위해 기존 queryClient.prefetchQuery 를 prefetchInfiniteQuery 로 바꿔준다.
+데이터를 hydration 해서 사용하는 PostRecommends.tsx 에서도 기존 useQuery > useInfiniteQuery 로 바꿔 준다.
+
+옵션에 initialPageParam 을 필수로 넣어주어야 한다.
+
+
+[intersection-observer]
+> npm i react-intersection-observer
+특정 태그가 화면에 노출되면 이벤트를 발생시킨다.
+
 
 
 
