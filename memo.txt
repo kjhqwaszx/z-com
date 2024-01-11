@@ -149,6 +149,21 @@ react-query 는 로그인 이후 화면에서 사용할 것이기 때문에 (aft
 > npm i react-intersection-observer
 특정 태그가 화면에 노출되면 이벤트를 발생시킨다.
 
+[loading.tsx & error.tsx]
+해당 파일들은 서버 컴포넌트에서 로딩, 에러가 발생할 때 보여지는 화면들이다.
+예를들어 서버 컴포넌트인 @/(afterLogin)/home/page.tsx 에서 prefetch query 할 때 에러가 발생하면 @/(afterLogin)/home/error.tsx 가 보여진다.
+하지만 클라이언트 컴포넌트인 @/(afterLogin)/home/_component/PostRecommends.tsx 에서 에러가 발생했을 땐 보여지지 않는다.
+클라이언트 컴포넌트에서 에러 페이지를 렌딩하고 싶으면 해당 파일 내에 작성해야한다. (useQuery 의 isError 사용)
+
+[loading.tsx]
+
+@/(afterLogin)/home/page.tsx 에서 <Suspense fallback={<Loading/>}> 을 사용했기 때문에 /home 에 진입 시
+<Tab/> <PostForm/> 두개의 컴포넌트는 바로 렌더링 되어지고 ( 좌, 우 메뉴들은 layout 이므로 Next 에서 Streaming 한다.)
+<TabDecider/> 영역만 로딩 스피너가 돌아간다. 하지만, <Suspense fallback={<Loading}>은 서버에서 데이터 패칭이 되는 동안 로딩 화면을 보여주는 것이므로
+서버에서 prefetchInfiniteQuery 를 사용하는 PostRecommends.tsx 에만 <Loading/> 화면이 노출되고
+FollowingPost.tsx 는 해당 컴포넌트에서 if(isPending) 을 사용해 <Loading/> 화면을 보여줘야 한다.
+
+But, FollowingPost 에서 useQuery 대신 useSuspenseQuery 를 사용하면 클라이언트 컴포넌트라도 <Suspense fallback={<Loading/>}> 적용을 받는다.
 
 
 

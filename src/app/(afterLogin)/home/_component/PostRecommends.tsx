@@ -1,14 +1,23 @@
 "use client"
 
-import {InfiniteData, useInfiniteQuery} from "@tanstack/react-query";
+import {InfiniteData, useInfiniteQuery, useSuspenseInfiniteQuery} from "@tanstack/react-query";
 import {getPostRecommend} from "@/app/(afterLogin)/home/_lib/getPostRecommends";
 import Post from "@/app/(afterLogin)/_component/Post";
 import {Post as IPost} from '@/model/Post'
 import React, {Fragment, useEffect} from "react";
 import {useInView} from "react-intersection-observer";
+import styles from "@/app/(afterLogin)/home/home.module.css";
 
 export default function PostRecommends(){
-    const {data, fetchNextPage, hasNextPage, isFetching} = useInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>,[_1:string, _2: string], number>({
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetching, // 데이터를 가지고 오면서 True 로 변함
+        isPending, // 데이터를 가지고 오기 전부터 True
+        isLoading, // isFetching && isPending
+        isError
+    } = useSuspenseInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>,[_1:string, _2: string], number>({
         queryKey:['posts', 'recommends'],
         queryFn: getPostRecommend,
         initialPageParam:0, // 처음 가져올 시작점 Try1:[[1,2,3,4,5]], Try2:[[1,2,3,4,5], [6,7,8,9,10]] ** 2차원 배열
@@ -31,6 +40,18 @@ export default function PostRecommends(){
         }
 
     },[inView, isFetching, hasNextPage, fetchNextPage])
+
+    // 클라이언트 컴포넌트에서의 에러 처리는 직접 해야한다. ( error.tsx 실행 x)
+    if(isError){
+        return(
+            <div>
+                <h2>Something went wrong!</h2>
+                <button>
+                    Try again
+                </button>
+            </div>
+            )
+    }
 
     return(
         <>

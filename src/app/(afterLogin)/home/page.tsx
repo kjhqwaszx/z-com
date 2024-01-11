@@ -2,30 +2,23 @@ import style from './home.module.css'
 import Tab from "@/app/(afterLogin)/home/_component/Tab";
 import TabProvider from "@/app/(afterLogin)/home/_component/TabProvider";
 import PostForm from "@/app/(afterLogin)/home/_component/PostForm";
-import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
-import {getPostRecommend} from "@/app/(afterLogin)/home/_lib/getPostRecommends";
-import TabDecider from "@/app/(afterLogin)/home/_component/TabDecider";
+import {Suspense} from "react";
+import TabDeciderSuspense from "@/app/(afterLogin)/home/_component/TabDeciderSuspense";
+import Loading from "@/app/(afterLogin)/home/loading";
 
 
 export default async function Home(){
-    const queryClient = new QueryClient
-    await queryClient.prefetchInfiniteQuery({
-        queryKey:['posts', 'recommends'],
-        queryFn: getPostRecommend,
-        initialPageParam: 0,
-    })
-    const dehydratedState = dehydrate(queryClient)
 
+    // <Tab/> 과 <PostForm/> 은 로딩 없이 바로 렌더링되고 아래 게시물 영역만 데이터 패칭 시 Loading 화면이 보여진다.
     return (
         <main className={style.main}>
-            {/*서버 컴포넌트 이므로 서버 데이터(dehydratedState) 를 클라이언트로 Hydration 해주는 과정) */}
-            <HydrationBoundary state={dehydratedState}>
-                <TabProvider>
-                    <Tab/>
-                    <PostForm/>
-                    <TabDecider/>
-                </TabProvider>
-            </HydrationBoundary>
+            <TabProvider>
+                <Tab/>
+                <PostForm/>
+                <Suspense fallback={<Loading/>}>
+                    <TabDeciderSuspense/>
+                </Suspense>
+            </TabProvider>
         </main>
     )
 }
