@@ -23,5 +23,6 @@ export default function UserPosts({ username }: Props) {
             <Post key={post.postId} post={post} />
     ))
     }
+
     return null;
 }

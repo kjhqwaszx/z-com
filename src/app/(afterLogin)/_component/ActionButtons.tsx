@@ -4,7 +4,7 @@ import style from './post.module.css'
 import cx from 'classnames';
 import {useState} from "react";
 type Props = {
-    white?: boolean
+    white?: boolean,
 }
 
 export default function ActionButtons ({ white }: Props){
