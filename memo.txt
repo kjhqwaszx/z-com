@@ -165,5 +165,8 @@ FollowingPost.tsx 는 해당 컴포넌트에서 if(isPending) 을 사용해 <Loa
 
 But, FollowingPost 에서 useQuery 대신 useSuspenseQuery 를 사용하면 클라이언트 컴포넌트라도 <Suspense fallback={<Loading/>}> 적용을 받는다.
 
+[rewrite]
+next.config.js 에 rewrite 함수를 등록해 특정 규칙의 주소에 prefix 를 적용해준다.
+
 
 

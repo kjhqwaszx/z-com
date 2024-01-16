@@ -18,12 +18,18 @@ export default function LoginModal() {
         // id/pw 로그인이기 때문에 credentials 를 입력하고 카카오나 구글 로그인을 추가하려면
         // "kakao", "google" 을 넣어주고 @/auth.ts 에 provider 배열에 kakao, google 을 추가해주면 된다.
         try{
-            await signIn("credentials", {
+            const response = await signIn("credentials", {
                 username: id,
                 password,
                 redirect: false,
             })
-            router.replace('/home')
+            console.log('$$ response: ', response)
+
+            if(response?.error === 'CredentialsSignin'){
+                setMessage('아이디와 비밀번호가 일치하지 않습니다.')
+            }else{
+                router.replace('/home')
+            }
         }catch (e) {
             console.error(e)
             setMessage('아이디와 비밀번호가 일치하지 않습니다.')

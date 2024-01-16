@@ -20,12 +20,13 @@ export default async (prevState: any, formData: FormData) =>{
     return {message: 'no_image'}
   }
 
+  formData.set('nickname', formData.get('name') as string)
   let shouldRedirect = false;
 
   try{
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,{
       method: 'post',
-      body: 'formData',
+      body: formData,
       credentials: 'include'
     })
 
@@ -33,6 +34,8 @@ export default async (prevState: any, formData: FormData) =>{
       return {message: 'user_exists'}
     }
 
+    shouldRedirect=true
+    console.log('$$$$ signUp success: ', response)
     // 회원가입 후 로그인 처리
     // Server Action 이므로 @/auth 의 signIn 을 사용한다 ( /next-auth/react x)
     await signIn("credentials", {
@@ -41,7 +44,8 @@ export default async (prevState: any, formData: FormData) =>{
       redirect: false,
     })
 
-    shouldRedirect=true
+    console.log('$$$$ signIn success: ', response)
+
   }catch (e) {
     console.error(e)
   }

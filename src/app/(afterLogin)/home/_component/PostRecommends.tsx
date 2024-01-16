@@ -1,12 +1,11 @@
 "use client"
 
-import {InfiniteData, useInfiniteQuery, useSuspenseInfiniteQuery} from "@tanstack/react-query";
+import {InfiniteData, useSuspenseInfiniteQuery} from "@tanstack/react-query";
 import {getPostRecommend} from "@/app/(afterLogin)/home/_lib/getPostRecommends";
 import Post from "@/app/(afterLogin)/_component/Post";
 import {Post as IPost} from '@/model/Post'
 import React, {Fragment, useEffect} from "react";
 import {useInView} from "react-intersection-observer";
-import styles from "@/app/(afterLogin)/home/home.module.css";
 
 export default function PostRecommends(){
     const {
@@ -38,6 +37,7 @@ export default function PostRecommends(){
             !isFetching && hasNextPage && fetchNextPage()
 
         }
+
 
     },[inView, isFetching, hasNextPage, fetchNextPage])
 
