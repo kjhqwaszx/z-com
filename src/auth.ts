@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import {cookies} from "next/headers";
+import cookie from 'cookie';
 
 export const {
   handlers:{GET, POST}, // api route
@@ -14,7 +16,6 @@ export const {
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        // handlers 의 /api/login 호출
         const authResponse = await fetch(`${process.env.AUTH_URL}/api/login`, {
           method: "POST",
           headers: {
@@ -25,6 +26,16 @@ export const {
             password: credentials.password,
           }),
         })
+
+
+        // 프론트 서버에서 백엔드 서버의 토큰을 받아오는 과정
+        let setCookie = authResponse.headers.get('Set-Cookie')
+        console.log('$$$$ Set-Cookie: ', setCookie)
+        if(setCookie){
+          // 브라우저에 쿠키를 심어주는 과정
+          const parsed = cookie.parse(setCookie);
+          cookies().set('connect.sid', parsed['connect.sid'], parsed)
+        }
 
         if (!authResponse.ok) {
           // 로그인이 실패한 경우
