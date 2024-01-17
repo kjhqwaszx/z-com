@@ -168,5 +168,8 @@ But, FollowingPost 에서 useQuery 대신 useSuspenseQuery 를 사용하면 클�
 [rewrite]
 next.config.js 에 rewrite 함수를 등록해 특정 규칙의 주소에 prefix 를 적용해준다.
 
+[Optimistic Update]
+쿼리가 성공했다고 가정하고 setQueryData 로 데이터를 변경하고, 만약 에러가 발생하면 데이터를 원복시킨다.
+
 
 
