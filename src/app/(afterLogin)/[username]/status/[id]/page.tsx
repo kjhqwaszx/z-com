@@ -6,9 +6,23 @@ import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
 import {getSinglePost} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSinglePost";
 import {getComments} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getComments";
 import Comments from "@/app/(afterLogin)/[username]/status/[id]/_component/Comments";
+import {User} from "@/model/User";
+import {Post} from "@/model/Post";
+import {getUserServer} from "@/app/(afterLogin)/[username]/_lib/getUserServer";
+import {getSinglePostServer} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSinglePostServer";
 type Props = {
     params: {
-        id:string
+        id: string,
+        username: string
+    }
+}
+
+export async function generateMetadata({params}: Props) {
+    const user: User = await getUserServer({ queryKey: ["users", params.username] });
+    const post: Post = await getSinglePostServer({ queryKey: ["posts", params.id] });
+    return {
+        title: `Z에서 ${user.nickname} 님 : ${post.content}`,
+        description: post.content,
     }
 }
 export default async function page({params}:Props){

@@ -1,7 +1,12 @@
 import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 import style from "@/app/(afterLogin)/explore/explore.module.css";
 import TrendSection from "@/app/(afterLogin)/explore/_component/TrendSection";
+import {Metadata} from "next";
 
+export const metadata: Metadata = {
+    title: '탐색하기 / Z',
+    description: '탐색해보세요.',
+}
 export default function Explore (){
     return(
         <main className={style.main}>

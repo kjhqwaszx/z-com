@@ -178,3 +178,19 @@ prefetchQuery 시 쿠키를 브라우저에 전달해야 서버 & 클라이언�
 getUser() 에 header:{Cookies().toString()} 을 옵션으로 추가해주어야 한다.
 하지만 해당 옵션은 서버 컴포넌트에서만 사용할 수 있는데 UserInfo.tsx 는 클라이언트 컴포넌트 이므로 getUserServer() 를 만들어 preFetch 시에 해당 함수를 호출시킨다.
 
+-> prefetch 한 쿼리를 클라이언트 컴포넌트에서 CSR 로 사용 한다면 쿠키를 넘겨주거나 클라이언트 컴포넌트에서 staleTime 을 없애야 한다.(바로 리패치)
+
+[ 메타데이터 설정 ]
+아래 코드를 추가해주면 된다.
+export const metadata: Metadata = {
+    title: 'Z. 무슨 일이 일어나고 있나요? / Z',
+    description: 'Z.com inspired by X.com',
+}
+
+단순 문자가 아니라면 generateMetadata 함수를 사용한다.
+export async function generateMetadata({searchParams}: Props): Promise<Metadata> {
+  return {
+    title: `${searchParams.q} - 검색 / Z`,
+    description: `${searchParams.q} - 검색 / Z`,
+  }
+}
