@@ -5,13 +5,14 @@ import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {User} from "@/model/User";
 import {getUser} from "@/app/(afterLogin)/[username]/_lib/getUser";
 import cx from "classnames";
-import {useSession} from "next-auth/react";
 import {MouseEventHandler} from "react";
+import {Session} from "@auth/core/types";
 
 type Props={
-    username: string
+    username: string,
+    session: Session | null
 }
-export default function UserInfo({username}: Props){
+export default function UserInfo({username, session}: Props){
 
 
     const { data: user, error } = useQuery<User, Object, User, [_1: string, _2: string]>({
@@ -21,7 +22,6 @@ export default function UserInfo({username}: Props){
         gcTime: 300 * 1000,
     });
 
-    const {data: session} = useSession()
     const followed = user?.Followers?.find((v) => v.id === session?.user?.email);
 
     const queryClient = useQueryClient();

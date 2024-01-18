@@ -171,5 +171,10 @@ next.config.js 에 rewrite 함수를 등록해 특정 규칙의 주소에 prefix
 [Optimistic Update]
 쿼리가 성공했다고 가정하고 setQueryData 로 데이터를 변경하고, 만약 에러가 발생하면 데이터를 원복시킨다.
 
-
+[ 프론트 서버에 쿠키 보내기 ]
+유저 프로필에서 팔로우를 하게되면 팔로잉으로 표시되었다가 새로고침을 누르면 다시 팔로우로 변경된다.
+이유는 (afterLogin)/[username]/page.tsx(서버 컴포넌트) 에서 prefetchQuery 로 getUser 를 호출 했을 때의 서버 데이터가 사용되었기 때문이다.
+prefetchQuery 시 쿠키를 브라우저에 전달해야 서버 & 클라이언트 데이터가 동기화된다.
+getUser() 에 header:{Cookies().toString()} 을 옵션으로 추가해주어야 한다.
+하지만 해당 옵션은 서버 컴포넌트에서만 사용할 수 있는데 UserInfo.tsx 는 클라이언트 컴포넌트 이므로 getUserServer() 를 만들어 preFetch 시에 해당 함수를 호출시킨다.
 
