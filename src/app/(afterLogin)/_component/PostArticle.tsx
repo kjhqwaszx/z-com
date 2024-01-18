@@ -12,8 +12,14 @@ type Props = {
 }
 export default function PostArticle({children, post}:Props){
     const router = useRouter();
-    const onClick = () =>{
-        router.push(`/${post.User.id}/status/${post.postId}`)
+    let target = post;
+
+    if (post.Original) {
+        target = post.Original;
+    }
+
+    const onClick = () => {
+        router.push(`/${target.User.id}/status/${target.postId}`);
     }
     return (
         <article onClick={onClick} className={style.post}>

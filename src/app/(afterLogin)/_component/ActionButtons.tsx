@@ -2,7 +2,7 @@
 
 import style from './post.module.css'
 import cx from 'classnames';
-import {MouseEventHandler} from "react";
+import React, {MouseEventHandler} from "react";
 import {InfiniteData, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
 import {Post} from "@/model/Post";
@@ -14,9 +14,8 @@ type Props = {
 export default function ActionButtons ({ white, post }: Props){
     const queryClient = useQueryClient()
     const {data: session} = useSession()
-    const commented = !!post?.Comments.find((v)=>v.userId === session?.user?.email)
-    const reposted = !!post?.Reposts.find((v)=>v.userId === session?.user?.email)
-    const liked = !!post?.Hearts.find((v)=>v.userId === session?.user?.email)
+    const reposted = !!post?.Reposts?.find((v)=>v.userId === session?.user?.email)
+    const liked = !!post?.Hearts?.find((v)=>v.userId === session?.user?.email)
     const {postId} = post
 
     const heart = useMutation({
@@ -239,9 +238,29 @@ export default function ActionButtons ({ white, post }: Props){
         }
     })
 
-    const onClickComment = () => {
+    const onClickComment: MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.stopPropagation()
+        const formData = new FormData();
+        formData.append('content', '답글 테스트')
+
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/comments`,{
+            method: "post",
+            credentials: "include",
+            body: formData
+        })
     }
-    const onClickRepost = () => {
+    const onClickRepost: MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.stopPropagation()
+        if(!reposted){
+            const formData = new FormData();
+            formData.append('content', '재게시 테스트')
+
+            fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/reposts`,{
+                method: "post",
+                credentials: "include",
+                body: formData
+            })
+        }
     }
     const onClickHeart:MouseEventHandler<HTMLButtonElement> = (e) => {
         e.stopPropagation()
@@ -254,7 +273,7 @@ export default function ActionButtons ({ white, post }: Props){
 
     return (
         <div className={style.actionButtons}>
-            <div className={cx(style.commentButton, { [style.commented]: commented }, white && style.white)}>
+            <div className={cx(style.commentButton, white && style.white)}>
                 <button onClick={onClickComment}>
                     <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
                         <g>
