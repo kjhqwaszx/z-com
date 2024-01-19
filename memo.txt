@@ -194,3 +194,8 @@ export async function generateMetadata({searchParams}: Props): Promise<Metadata>
     description: `${searchParams.q} - 검색 / Z`,
   }
 }
+
+[ Zustand ]
+> npm i zustand
+
+설치후 /src 밑에 store 폴더 생성하고 공유하려는 상태를 만들어준다(modal.tsx)
