@@ -7,6 +7,7 @@ import {InfiniteData, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
 import {Post} from "@/model/Post";
 import {useRouter} from "next/navigation";
+import {useModalStore} from "@/store/modal";
 
 type Props = {
     white?: boolean,
@@ -17,6 +18,9 @@ export default function ActionButtons ({ white, post }: Props){
     const queryClient = useQueryClient()
     const router = useRouter()
     const {data: session} = useSession()
+    // Modal Store 사용
+    const modalStore = useModalStore()
+
     const reposted = !!post?.Reposts?.find((v)=>v.userId === session?.user?.email)
     const liked = !!post?.Hearts?.find((v)=>v.userId === session?.user?.email)
     const {postId} = post
@@ -383,15 +387,19 @@ export default function ActionButtons ({ white, post }: Props){
     const onClickComment: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.stopPropagation()
 
-        router.push('/compose/tweet')
-        const formData = new FormData();
-        formData.append('content', '답글 테스트')
+        // 답글달기 모드, 게시글 세팅
+        modalStore.setMode('comment')
+        modalStore.setData(post)
 
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/comments`,{
-            method: "post",
-            credentials: "include",
-            body: formData
-        })
+        router.push('/compose/tweet')
+
+        // const formData = new FormData();
+        // formData.append('content', '답글 테스트')
+        // fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/comments`,{
+        //     method: "post",
+        //     credentials: "include",
+        //     body: formData
+        // })
     }
 
     const onClickRepost: MouseEventHandler<HTMLButtonElement> = (e) => {

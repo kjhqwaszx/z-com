@@ -1,6 +1,7 @@
 import {create} from "zustand";
 import {Post} from "@/model/Post";
 
+// TypeScript 을 위한 interface
 interface ModalState {
     // 'new': 새글, 'comment': 답글
     mode: 'new' | 'comment',
