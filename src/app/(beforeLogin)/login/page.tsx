@@ -10,7 +10,6 @@ export default async function Login() {
         redirect('/home');
         return null;
     }
-
     return (
         <>
             <RedirectToLogin />
