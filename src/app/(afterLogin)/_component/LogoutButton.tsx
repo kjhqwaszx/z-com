@@ -18,6 +18,7 @@ export default function LogoutButton({userInfo}:Props) {
     }
 
     const onLogout = () => {
+        // 캐싱된 데이터를 없애기 위해 invalidate 시킨다.
         queryClient.invalidateQueries( {
             queryKey:["posts"]
         })
