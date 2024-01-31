@@ -16,10 +16,11 @@ type Props = {children: ReactNode, modal: ReactNode}
 
 export default async function AfterLoginLayout({children, modal}:Props){
     const session = await auth();
+
     return (
         <div className={style.container}>
             <RQProvider>
-                {/*좌측 메뉴*/}
+                {/* Left Section */}
                 <header className={style.leftSectionWrapper}>
                     <section className={style.leftSection}>
                         <div className={style.leftSectionFixed}>
@@ -48,11 +49,11 @@ export default async function AfterLoginLayout({children, modal}:Props){
                 </header>
                 <div className={style.rightSectionWrapper}>
                     <div className={style.rightSectionInner}>
-                        {/*중앙 메인*/}
+                        {/*Center*/}
                         <main className={style.main}>
                             {children}
                         </main>
-                        {/*우측 영역*/}
+                        {/*Right Section*/}
                         <section className={style.rightSection}>
                             {/*검색 창*/}
                             <RightSearchZone/>

@@ -3,7 +3,7 @@ import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 import RedirectToSignup from "@/app/(beforeLogin)/signup/_component/RedirectToSignup";
 
-export default async function Login() {
+export default async function Signup() {
     const session = await auth();
 
     if (session?.user) {

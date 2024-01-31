@@ -36,8 +36,9 @@ export default async (prevState: any, formData: FormData) =>{
 
     shouldRedirect=true
     console.log('$$$$ signUp success: ', response)
+
     // 회원가입 후 로그인 처리
-    // Server Action 이므로 @/auth 의 signIn 을 사용한다 ( /next-auth/react x)
+    // Server Action 이므로 @/auth 의 signIn 을 사용한다 ( /next-auth/react X)
     await signIn("credentials", {
       username: formData.get('id'),
       password: formData.get('password'),
