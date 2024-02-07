@@ -22,6 +22,7 @@ export default function FollowRecommend({user}: Props) {
             })
         },
         onMutate(userId : string){
+            //Optimistic Update
             const value: User[] | undefined = queryClient.getQueryData(["users", "followRecommends"]);
             if (value) {
                 const index = value.findIndex((v) => v.id === userId);
@@ -89,6 +90,7 @@ export default function FollowRecommend({user}: Props) {
             })
         },
         onMutate(userId: string){
+            //Optimistic Update
             const value:User [] | undefined = queryClient.getQueryData(["users","followRecommends"])
 
             if(value){

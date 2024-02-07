@@ -48,7 +48,7 @@ const segment = useSelectedLayoutSegments() 로 선언하면
 2-2. /src/mocks/browser.ts
     이 파일은 클라이언트에서 실행되는 환경이다.
 
-3. >/src/mocks/handlers.ts
+3. /src/mocks/handlers.ts
     이 파일에서 실제 response 내용을 작성한다.
     http.ts 와 browser.ts 가 이 핸들러를 사용한다.
 
