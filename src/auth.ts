@@ -27,7 +27,6 @@ export const {
           }),
         })
 
-
         // 프론트 서버에서 백엔드 서버의 토큰을 받아오는 과정
         let setCookie = authResponse.headers.get('Set-Cookie')
         console.log('$$$$ Set-Cookie: ', setCookie)
